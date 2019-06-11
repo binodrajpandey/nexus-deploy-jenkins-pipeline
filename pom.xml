@@ -24,11 +24,12 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<docker.image.prefix>docker</docker.image.prefix>
+		<nexus.host>nexus:8081</nexus.host>
 	</properties>
 	<distributionManagement>
 		<snapshotRepository>
 			<id>nexus-snapshots</id>
-			<url>http://nexus:8081/repository/maven-snapshots/</url>
+			<url>http://${nexus.host}/repository/maven-snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 	<dependencies>
@@ -59,24 +60,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
-				<groupId>com.spotify</groupId>
-				<artifactId>docker-maven-plugin</artifactId>
-				<version>0.4.10</version>
-				<configuration>
-					<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-					<dockerHost>http://localhost:2375</dockerHost>
-					<!--<dockerCertPath>C:\\Users\\user\\.docker\\machine\\certs</dockerCertPath> -->
-					<dockerDirectory>src/main/docker</dockerDirectory>
-					<resources>
-						<resource>
-							<targetPath>/</targetPath>
-							<directory>${project.build.directory}</directory>
-							<include>${project.build.finalName}.jar</include>
-						</resource>
-					</resources>
-				</configuration>
-			</plugin>
+			
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
@@ -99,7 +83,7 @@
 				</executions>
 				<configuration>
 					<serverId>nexus</serverId>
-					<nexusUrl>http://nexus:8081/</nexusUrl>
+					<nexusUrl>http://${nexus.host}/</nexusUrl>
 					<skipStaging>true</skipStaging>
 				</configuration>
 			</plugin>
