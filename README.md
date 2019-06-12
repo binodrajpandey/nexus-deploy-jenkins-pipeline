@@ -2,6 +2,11 @@
 
 1. Start nexus server (see compose file in the wiki of this repo)
 2. Start jenkins server (see compose file in the wiki of this repo)
+3. Configure maven
+  Manage Jenkins --> Global Tool Configuration --> Maven Installation
+  Name: maven_3_6_1
+  check install automatically
+  Version 3.6.1
 3. Configure settings.xml file inside .m2 folder in jenkins server. (You can see settings.xml file in the wiki of this repo)
 4. Create a pipeline 
 5. Build it
